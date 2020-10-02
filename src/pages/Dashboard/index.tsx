@@ -42,7 +42,6 @@ const Dashboard: React.FC = () => {
             imageURL: `https://pokeres.bastionbot.org/images/pokemon/${
               index + 1
             }.png`,
-            type: getPokemonType(index + 1),
           }),
         );
 
@@ -53,23 +52,29 @@ const Dashboard: React.FC = () => {
     loadPokemons();
   }, []);
 
-  console.log(pokemons);
+  useEffect(() => {
+    pokemons.forEach(async (pokemon: IPokemon) => {
+      const response = await api.get(`/pokemon/${pokemon.id}`);
 
-  async function getPokemonType(id: number): Promise<IType> {
-    const response = await api.get(`pokemon/${id}`);
+      console.log(response.data.name);
+    });
+  }, [pokemons]);
 
-    const types = response.data.types.map((t: IType) => t.type.name);
+  // async function getPokemonType(id: number): Promise<IType> {
+  //   const response = await api.get(`pokemon/${id}`);
 
-    // const pokemon: IPokemon = {
-    //   id: response.data.id,
-    //   name: response.data.name,
-    //   imageURL: `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`,
-    //   types,
-    // };
+  //   const types = response.data.types.map((t: IType) => t.type.name);
 
-    // setPokemons([...pokemons, pokemon]);
-    return types;
-  }
+  //   const pokemon: IPokemon = {
+  //     id: response.data.id,
+  //     name: response.data.name,
+  //     imageURL: `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`,
+  //     types,
+  //   };
+
+  //   setPokemons([...pokemons, pokemon]);
+  //   return types;
+  // }
 
   return (
     <Container>
