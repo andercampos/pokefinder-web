@@ -4,13 +4,19 @@ import { CgPokemon } from 'react-icons/cg';
 
 import api from '../../services/api';
 
-import Image from '../../components/Image';
+import Card from '../../components/Card';
 
-import { Container, Title, Form, Content, Card } from './styles';
+import { Container, Title, Form, Content } from './styles';
 
 interface IPagination {
   next: string;
   previous: string;
+  results: [
+    {
+      name: string;
+      url: string;
+    },
+  ];
 }
 
 interface IType {
@@ -27,8 +33,8 @@ interface IPokemon {
 }
 
 const Dashboard: React.FC = () => {
-  const [pokemons, setPokemons] = useState<IPokemon[]>([]);
   const [pagination, setPagination] = useState<IPagination>();
+  const [pokemons, setPokemons] = useState<IPokemon[]>([]);
 
   useEffect(() => {
     async function loadPokemons(): Promise<void> {
@@ -52,30 +58,6 @@ const Dashboard: React.FC = () => {
     loadPokemons();
   }, []);
 
-  useEffect(() => {
-    pokemons.forEach(async (pokemon: IPokemon) => {
-      const response = await api.get(`/pokemon/${pokemon.id}`);
-
-      console.log(response.data.name);
-    });
-  }, [pokemons]);
-
-  // async function getPokemonType(id: number): Promise<IType> {
-  //   const response = await api.get(`pokemon/${id}`);
-
-  //   const types = response.data.types.map((t: IType) => t.type.name);
-
-  //   const pokemon: IPokemon = {
-  //     id: response.data.id,
-  //     name: response.data.name,
-  //     imageURL: `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`,
-  //     types,
-  //   };
-
-  //   setPokemons([...pokemons, pokemon]);
-  //   return types;
-  // }
-
   return (
     <Container>
       <Title>
@@ -84,31 +66,32 @@ const Dashboard: React.FC = () => {
 
       <Form>
         <div>
-          <input type="text" placeholder="Digite o nome ou número do pokemon" />
+          <input
+            type="text"
+            placeholder="Search for a Pokémon by name or number"
+          />
           <FiSearch size={24} />
         </div>
-        <button type="submit">Pesquisar</button>
+        <button type="submit">Find</button>
         <select>
-          <option value="name">Filtrar por...</option>
-          <option value="name">Nome</option>
-          <option value="name">name</option>
-          <option value="name">name</option>
+          <option value="name">Lowest Number(First)</option>
+          <option value="name">Highest Number(First)</option>
+          <option value="name">A - Z</option>
+          <option value="name">Z - A</option>
           <option value="name">name</option>
         </select>
       </Form>
 
       <Content>
-        {pokemons.map(pokemon => (
-          <Card key={pokemon.name} href="/">
-            <Image image={pokemon.imageURL} alt={pokemon.name} />
-            <p>#{pokemon.id}</p>
-            <h3>{pokemon.name}</h3>
-            <ul>
-              <li>Grass</li>
-              <li>Poison</li>
-            </ul>
-          </Card>
-        ))}
+        {!!pokemons &&
+          pokemons.map(pokemon => (
+            <Card
+              key={pokemon.name}
+              id={pokemon.id}
+              name={pokemon.name}
+              imageURL={pokemon.imageURL}
+            />
+          ))}
       </Content>
     </Container>
   );

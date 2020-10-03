@@ -42,7 +42,7 @@ export const Form = styled.form`
   }
   button {
     height: 60px;
-    width: 200px;
+    width: 150px;
     background: var(--primary-color);
     border: 0;
     border-radius: 10px;
@@ -55,9 +55,10 @@ export const Form = styled.form`
   }
 
   select {
-    width: 130px;
+    width: 200px;
     height: 60px;
     background: var(--primary-color);
+    padding-left: 8px;
 
     border: 0;
     border-radius: 10px;
@@ -78,47 +79,4 @@ export const Content = styled.div`
   gap: 16px;
 
   margin-bottom: 32px;
-`;
-
-export const Card = styled.a`
-  background: #1f211f;
-  border-radius: 10px;
-  width: 200px;
-  padding-bottom: 8px;
-  text-decoration: none;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: translateY(-10px);
-  }
-
-  p {
-    font-size: 12px;
-    color: #999;
-    padding: 4px 8px;
-  }
-
-  h3 {
-    color: var(--text-color);
-    font-size: 20px;
-    padding: 4px 8px;
-  }
-
-  ul {
-    list-style: none;
-    display: flex;
-
-    padding: 0 8px;
-    li {
-      background: #fff;
-      text-align: center;
-      color: black;
-      width: 75px;
-      border-radius: 4px;
-
-      & + li {
-        margin-left: 8px;
-      }
-    }
-  }
 `;
