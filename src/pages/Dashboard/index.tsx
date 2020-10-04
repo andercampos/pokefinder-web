@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
-import { FiSearch } from 'react-icons/fi';
-import { CgPokemon } from 'react-icons/cg';
+import { Link } from 'react-router-dom';
+import { CgSearch, CgPokemon, CgArrowLeft } from 'react-icons/cg';
 
 import api from '../../services/api';
 
@@ -34,7 +33,6 @@ const Dashboard: React.FC = () => {
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
   const [findPokemon, setFindPokemon] = useState('');
   const [filter, setFilter] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     async function loadPokemons(): Promise<void> {
@@ -77,6 +75,8 @@ const Dashboard: React.FC = () => {
           },
         ];
 
+        localStorage.setItem('@pokefinder: pokemons', JSON.stringify(pokemons));
+
         setFilter(true);
         setPokemons(pokemon);
         setFindPokemon('');
@@ -84,7 +84,7 @@ const Dashboard: React.FC = () => {
         console.log(err);
       }
     },
-    [findPokemon],
+    [findPokemon, pokemons],
   );
 
   const handleLoadMore = useCallback(async () => {
@@ -122,10 +122,15 @@ const Dashboard: React.FC = () => {
     [pokemons],
   );
 
-  function handleGoBack(): void {
+  const handleGoBack = useCallback(() => {
+    const storagedPokemons = localStorage.getItem('@pokefinder: pokemons');
+
+    if (storagedPokemons) {
+      setPokemons([...JSON.parse(storagedPokemons)]);
+    }
+
     setFilter(false);
-    history.push('/');
-  }
+  }, []);
 
   return (
     <Container>
@@ -141,7 +146,7 @@ const Dashboard: React.FC = () => {
             type="text"
             placeholder="Search for a Pokémon by name or number"
           />
-          <FiSearch size={24} />
+          <CgSearch size={24} />
         </div>
         <button type="submit">Find</button>
         <select onChange={handleFilter}>
@@ -168,7 +173,8 @@ const Dashboard: React.FC = () => {
           </button>
         ) : (
           <button type="button" onClick={handleGoBack}>
-            Back
+            <CgArrowLeft size={24} />
+            Go back
           </button>
         )}
       </Content>

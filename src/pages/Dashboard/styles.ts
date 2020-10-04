@@ -90,11 +90,19 @@ export const Content = styled.div`
     border: 0;
     border-radius: 4px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background: var(--primary-color);
     transition: background 0.2s;
 
     &:hover {
       background: var(--primary-hover);
+    }
+
+    svg {
+      margin-right: 8px;
     }
   }
 `;
