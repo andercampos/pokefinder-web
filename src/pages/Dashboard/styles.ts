@@ -72,11 +72,29 @@ export const Form = styled.form`
 `;
 
 export const Content = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   flex-basis: 0;
   gap: 16px;
 
-  margin-bottom: 32px;
+  margin-bottom: 100px;
+
+  button {
+    position: absolute;
+    bottom: -70px;
+    width: 150px;
+    height: 50px;
+    border: 0;
+    border-radius: 4px;
+
+    background: var(--primary-color);
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--primary-hover);
+    }
+  }
 `;

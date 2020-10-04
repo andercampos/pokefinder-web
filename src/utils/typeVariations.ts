@@ -9,10 +9,10 @@ export interface ITypeVariations {
     | 'water'
     | 'bug'
     | 'normal'
-    | 'eletric'
+    | 'electric'
     | 'ground'
     | 'fairy'
-    | 'fightning'
+    | 'fighting'
     | 'psychic'
     | 'rock'
     | 'steel'
@@ -45,7 +45,7 @@ export const typeVariations = {
     background: #a4acaf;
     color: #212121;
   `,
-  eletric: css`
+  electric: css`
     background: #eed535;
     color: #212121;
   `,
@@ -57,7 +57,7 @@ export const typeVariations = {
     background: #fdb9e9;
     color: #212121;
   `,
-  fightning: css`
+  fighting: css`
     background: #d56723;
   `,
   psychic: css`
