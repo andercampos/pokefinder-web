@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 import formatString from '../../utils/formatString';
@@ -34,18 +35,20 @@ const Card: React.FC<ICardProps> = ({ id, name, imageURL }) => {
 
   return (
     <Container>
-      <Image image={imageURL} alt={name} />
-      <p># {id}</p>
-      <h3>{formatString(name)}</h3>
+      <Link to={`/details/${name}`}>
+        <Image image={imageURL} alt={name} />
+        <p># {id}</p>
+        <h3>{formatString(name)}</h3>
 
-      <ul>
-        {!!types &&
-          types.map(t => (
-            <Li key={t.type} type={t.type}>
-              {formatString(t.type)}
-            </Li>
-          ))}
-      </ul>
+        <ul>
+          {!!types &&
+            types.map(t => (
+              <Li key={t.type} type={t.type}>
+                {formatString(t.type)}
+              </Li>
+            ))}
+        </ul>
+      </Link>
     </Container>
   );
 };

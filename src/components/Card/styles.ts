@@ -4,7 +4,7 @@ import { ITypeVariations, typeVariations } from '../../utils/typeVariations';
 
 type ILiType = ITypeVariations;
 
-export const Container = styled.a`
+export const Container = styled.div`
   background: #1f211f;
   border-radius: 10px;
   width: 200px;
@@ -12,16 +12,20 @@ export const Container = styled.a`
   text-decoration: none;
   transition: transform 0.2s;
 
-  cursor: pointer;
-
   &:hover {
     transform: translateY(-10px);
   }
+
+  a {
+    text-decoration: none;
+  }
+
   p {
     font-size: 12px;
     color: #999;
     padding: 4px 8px;
   }
+
   h3 {
     color: var(--text-color);
     font-size: 20px;

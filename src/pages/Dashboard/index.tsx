@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
 import { CgSearch, CgPokemon, CgArrowLeft } from 'react-icons/cg';
 
 import api from '../../services/api';
