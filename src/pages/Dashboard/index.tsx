@@ -74,7 +74,12 @@ const Dashboard: React.FC = () => {
           },
         ];
 
-        localStorage.setItem('@pokefinder: pokemons', JSON.stringify(pokemons));
+        if (pokemons.length > 1) {
+          localStorage.setItem(
+            '@pokefinder: pokemons',
+            JSON.stringify(pokemons),
+          );
+        }
 
         setFilter(true);
         setPokemons(pokemon);
@@ -173,7 +178,7 @@ const Dashboard: React.FC = () => {
         ) : (
           <button type="button" onClick={handleGoBack}>
             <CgArrowLeft size={24} />
-            Go back
+            Back to list
           </button>
         )}
       </Content>
