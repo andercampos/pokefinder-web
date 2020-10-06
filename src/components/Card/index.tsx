@@ -36,7 +36,7 @@ const Card: React.FC<ICardProps> = ({ id, name, imageURL }) => {
   return (
     <Container>
       <Link to={`/details/${name}`}>
-        <Image image={imageURL} alt={name} />
+        <Image height={200} width={200} image={imageURL} alt={name} />
         <p># {id}</p>
         <h3>{formatString(name)}</h3>
 

@@ -1,23 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { CgPokemon, CgArrowLeft } from 'react-icons/cg';
+import { AiOutlineCodeSandbox } from 'react-icons/ai';
 
-import { Container, Header, Title, Content } from './styles';
 import api from '../../services/api';
 import formatString from '../../utils/formatString';
+import Image from '../../components/Image';
+
+import { ITypeVariations } from '../../utils/typeVariations';
+
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Pokemon,
+  Detail,
+  Info,
+  Type,
+  Li,
+  Stats,
+} from './styles';
 
 interface IDetailsParams {
   pokemon: string;
 }
 
+type ILiType = ITypeVariations;
+
+interface IStats {
+  base_stat: number;
+}
+
 interface IPokemon {
   id: number;
   name: string;
+  height: number;
+  weight: number;
   imageURL: string;
+  types: ILiType[];
+  stats: IStats[];
 }
 
 const Details: React.FC = () => {
-  const [pokemons, setPokemons] = useState<IPokemon>({} as IPokemon);
+  const [pokemon, setPokemon] = useState<IPokemon>({} as IPokemon);
 
   const { params } = useRouteMatch<IDetailsParams>();
 
@@ -25,10 +51,28 @@ const Details: React.FC = () => {
     async function loadDetails(): Promise<void> {
       const response = await api.get(`/pokemon/${params.pokemon}`);
 
-      setPokemons(response.data);
+      const { id, name, types, height, weight, stats } = response.data;
+
+      const typesData = types.map((t: any) => ({
+        type: t.type.name,
+      }));
+
+      const pokemonData = {
+        id,
+        name: formatString(name),
+        height,
+        weight,
+        imageURL: `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`,
+        types: typesData,
+        stats,
+      };
+
+      setPokemon(pokemonData);
     }
     loadDetails();
   }, [params.pokemon]);
+
+  if (pokemon.stats) console.log(pokemon.stats);
 
   return (
     <Container>
@@ -44,10 +88,74 @@ const Details: React.FC = () => {
       </Header>
 
       <Content>
-        <div>
-          <h1>{pokemons.name}</h1>
-          <h1># {pokemons.id}</h1>
-        </div>
+        <Pokemon>
+          <h1>{pokemon.name}</h1>
+          <h1># {pokemon.id}</h1>
+        </Pokemon>
+
+        <Detail>
+          <Image
+            height={400}
+            width={400}
+            image={pokemon.imageURL}
+            alt={pokemon.name}
+          />
+          <Info>
+            <div>
+              <h3>Height</h3>
+              <span>{pokemon.height * 10} cm</span>
+            </div>
+            <div>
+              <h3>Weidth</h3>
+              <span>{pokemon.weight / 10} kg</span>
+            </div>
+            <Type>
+              <h3>Type</h3>
+              <ul>
+                {!!pokemon.types &&
+                  pokemon.types.map(t => (
+                    <Li key={t.type} type={t.type}>
+                      {t.type}
+                    </Li>
+                  ))}
+              </ul>
+            </Type>
+          </Info>
+          <Stats>
+            {!!pokemon.stats && (
+              <>
+                <div>
+                  <h3>HP</h3>
+                  <span>{pokemon.stats[0].base_stat}</span>
+                </div>
+                <div>
+                  <h3>Attack</h3>
+                  <span>{pokemon.stats[1].base_stat}</span>
+                </div>
+                <div>
+                  <h3>Defense</h3>
+                  <span>{pokemon.stats[2].base_stat}</span>
+                </div>
+                <div>
+                  <h3>Especial Attack</h3>
+                  <span>{pokemon.stats[3].base_stat}</span>
+                </div>
+                <div>
+                  <h3>Especial Defense</h3>
+                  <span>{pokemon.stats[4].base_stat}</span>
+                </div>
+                <div>
+                  <h3>Speed</h3>
+                  <span>{pokemon.stats[5].base_stat}</span>
+                </div>
+              </>
+            )}
+          </Stats>
+        </Detail>
+        <Link to="/model">
+          <AiOutlineCodeSandbox size={24} />
+          See 3d model
+        </Link>
       </Content>
     </Container>
   );

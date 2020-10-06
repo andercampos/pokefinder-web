@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface IImageProps {
+  height: number;
+  width: number;
+}
+
+export const Container = styled.div<IImageProps>`
   background: var(--shape);
-  height: 200px;
-  width: 200px;
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
   border-radius: 10px;
 
   display: flex;

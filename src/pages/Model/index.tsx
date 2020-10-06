@@ -13,7 +13,9 @@ const Three: React.FC = () => {
     <Container>
       <Header>
         <Title>
-          P<CgPokemon size={30} /> kefinder
+          <Link to="/">
+            P<CgPokemon size={30} /> kefinder
+          </Link>
         </Title>
 
         <Link to="/details">
