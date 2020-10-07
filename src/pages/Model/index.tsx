@@ -29,7 +29,7 @@ const Three: React.FC = () => {
         style={{ height: '90%', borderRadius: 10 }}
       >
         <ambientLight intensity={0.5} />
-        <Scene name="pikachu" />
+        <Scene />
         <Controls />
       </Canvas>
     </Container>

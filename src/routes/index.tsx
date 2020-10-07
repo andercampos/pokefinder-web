@@ -8,7 +8,7 @@ import Model from '../pages/Model';
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={Dashboard} />
-    <Route path="/details/:pokemon+" component={Details} />
+    <Route path="/details/:pokemon/:hasmodel" component={Details} />
     <Route path="/model" component={Model} />
   </Switch>
 );

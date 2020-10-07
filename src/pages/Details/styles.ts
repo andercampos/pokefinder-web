@@ -83,6 +83,9 @@ export const Detail = styled.div`
   display: flex;
   justify-content: space-between;
 
+  background: #1f211f;
+  border-radius: 10px;
+  padding: 16px;
   margin-bottom: 32px;
 `;
 

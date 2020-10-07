@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -15,9 +15,10 @@ interface ICardProps {
   id: number;
   name: string;
   imageURL: string;
+  hasModel: boolean;
 }
 
-const Card: React.FC<ICardProps> = ({ id, name, imageURL }) => {
+const Card: React.FC<ICardProps> = ({ id, name, imageURL, hasModel }) => {
   const [types, setTypes] = useState<IType[]>([]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const Card: React.FC<ICardProps> = ({ id, name, imageURL }) => {
 
   return (
     <Container>
-      <Link to={`/details/${name}`}>
+      <Link to={`/details/${name}/${hasModel}`}>
         <Image height={200} width={200} image={imageURL} alt={name} />
         <p># {id}</p>
         <h3>{formatString(name)}</h3>
@@ -53,4 +54,4 @@ const Card: React.FC<ICardProps> = ({ id, name, imageURL }) => {
   );
 };
 
-export default Card;
+export default memo(Card);

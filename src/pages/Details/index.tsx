@@ -24,6 +24,7 @@ import {
 
 interface IDetailsParams {
   pokemon: string;
+  hasmodel: string;
 }
 
 type ILiType = ITypeVariations;
@@ -67,18 +68,21 @@ const Details: React.FC = () => {
         stats,
       };
 
+      if (params.hasmodel) {
+        localStorage.setItem('@pokefinder: pokemon', name);
+      }
+
       setPokemon(pokemonData);
     }
     loadDetails();
   }, [params.pokemon]);
 
-  if (pokemon.stats) console.log(pokemon.stats);
-
   return (
     <Container>
       <Header>
         <Title>
-          P<CgPokemon size={30} /> kefinder
+          P<CgPokemon size={30} />
+          kefinder
         </Title>
 
         <Link to="/">
@@ -152,10 +156,12 @@ const Details: React.FC = () => {
             )}
           </Stats>
         </Detail>
-        <Link to="/model">
-          <AiOutlineCodeSandbox size={24} />
-          See 3d model
-        </Link>
+        {params.hasmodel === 'true' && (
+          <Link to="/model">
+            <AiOutlineCodeSandbox size={24} />
+            View 3d model
+          </Link>
+        )}
       </Content>
     </Container>
   );

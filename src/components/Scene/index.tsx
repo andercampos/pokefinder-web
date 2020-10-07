@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useLoader } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -6,11 +6,17 @@ interface IModel {
   url: string;
 }
 
-interface IScene {
-  name: string;
-}
+const Scene: React.FC = () => {
+  const [pokemon] = useState(() => {
+    const storagedPokemon = localStorage.getItem('@pokefinder: pokemon');
 
-const Scene: React.FC<IScene> = ({ name }) => {
+    if (storagedPokemon) {
+      return storagedPokemon;
+    }
+
+    return '';
+  });
+
   function Model({ url }: IModel): any {
     const loadedModel = useLoader(GLTFLoader, url);
     return <primitive object={loadedModel.scene} />;
@@ -18,7 +24,7 @@ const Scene: React.FC<IScene> = ({ name }) => {
 
   return (
     <Suspense fallback={<>Loading...</>}>
-      <Model url={`assets/${name}/scene.gltf`} />
+      <Model url={`assets/${pokemon}/scene.gltf`} />
     </Suspense>
   );
 };

@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useState, FormEvent } from 'react';
 import { CgSearch, CgPokemon, CgArrowLeft } from 'react-icons/cg';
 
 import api from '../../services/api';
+import models from '../../data/models.json';
 
 import Card from '../../components/Card';
 import getPokemonId from '../../utils/getPokemonId';
-import filterPokemons from '../../utils/filterPokemons';
+import sortPokemons from '../../utils/sortPokemons';
 
 import { Container, Title, Form, Content } from './styles';
 
@@ -25,6 +26,7 @@ interface IPokemon {
   name: string;
   imageURL: string;
   url: string;
+  hasModel: boolean;
 }
 
 const Dashboard: React.FC = () => {
@@ -44,6 +46,7 @@ const Dashboard: React.FC = () => {
           pokemon.url,
         )}.png`,
         url: pokemon.url,
+        hasModel: models.name.includes(pokemon.name),
       }));
 
       setPokemons(pokemonData);
@@ -71,6 +74,7 @@ const Dashboard: React.FC = () => {
             name: response.data.name,
             imageURL,
             url: `https://pokeapi.co/api/v2/pokemon/${response.data.id}/`,
+            hasModel: models.name.includes(response.data.name),
           },
         ];
 
@@ -107,21 +111,45 @@ const Dashboard: React.FC = () => {
         pokemon.url,
       )}.png`,
       url: pokemon.url,
+      hasModel: models.name.includes(pokemon.name),
     }));
 
     const updatedPokemonList = pokemons.concat(pokemonData);
 
-    setPokemons(updatedPokemonList);
+    const removePokemonsDuplicate = updatedPokemonList.filter(
+      (pokemon: IPokemon, index, self) =>
+        index ===
+        self.findIndex((poke: IPokemon) => poke.name === pokemon.name),
+    );
+
+    setPokemons(removePokemonsDuplicate);
 
     setPagination(response.data);
   }, [pagination, pokemons]);
 
   const handleFilter = useCallback(
-    e => {
+    async e => {
       const { value } = e.target;
-      const filteredPokemons = filterPokemons(pokemons, value);
 
-      setPokemons(filteredPokemons);
+      if (value !== '3dModel') {
+        const sortedPokemons = sortPokemons(pokemons, value);
+
+        setPokemons(sortedPokemons);
+      } else {
+        await Promise.all(
+          models.name.map(name => api.get(`/pokemon/${name}`)),
+        ).then(response => {
+          const sortedBy3dModels = response.map((res: any) => ({
+            id: res.data.id,
+            name: res.data.name,
+            imageURL: `https://pokeres.bastionbot.org/images/pokemon/${res.data.id}.png`,
+            url: res.data.url,
+            hasModel: models.name.includes(res.data.name),
+          }));
+
+          setPokemons(sortedBy3dModels);
+        });
+      }
     },
     [pokemons],
   );
@@ -153,12 +181,19 @@ const Dashboard: React.FC = () => {
           <CgSearch size={24} />
         </div>
         <button type="submit">Find</button>
-        <select onChange={handleFilter}>
-          <option value="idASC">Lowest Number(First)</option>
-          <option value="idDESC">Highest Number(First)</option>
-          <option value="nameASC">A - Z</option>
-          <option value="nameDESC">Z - A</option>
-        </select>
+        {!filter ? (
+          <select onChange={handleFilter}>
+            <option value="idASC">Lowest Number(First)</option>
+            <option value="idDESC">Highest Number(First)</option>
+            <option value="nameASC">A - Z</option>
+            <option value="nameDESC">Z - A</option>
+            <option value="3dModel">3D Models</option>
+          </select>
+        ) : (
+          <button type="button" onClick={handleGoBack}>
+            Explore more
+          </button>
+        )}
       </Form>
 
       <Content>
@@ -168,17 +203,13 @@ const Dashboard: React.FC = () => {
             id={pokemon.id}
             name={pokemon.name}
             imageURL={pokemon.imageURL}
+            hasModel={pokemon.hasModel}
           />
         ))}
 
-        {!filter ? (
+        {!filter && (
           <button type="button" onClick={handleLoadMore}>
             Load more
-          </button>
-        ) : (
-          <button type="button" onClick={handleGoBack}>
-            <CgArrowLeft size={24} />
-            Back to list
           </button>
         )}
       </Content>
