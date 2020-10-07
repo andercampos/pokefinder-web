@@ -12,6 +12,10 @@ export const Container = styled.div`
   text-decoration: none;
   transition: transform 0.2s;
 
+  @media (max-width: 520px) {
+    width: 100%;
+  }
+
   &:hover {
     transform: translateY(-10px);
   }

@@ -183,20 +183,22 @@ const Dashboard: React.FC = () => {
           />
           <CgSearch size={24} />
         </div>
-        <button type="submit">Search</button>
-        {!filter ? (
-          <select onChange={handleFilter}>
-            <option value="idASC">Lowest Number(First)</option>
-            <option value="idDESC">Highest Number(First)</option>
-            <option value="nameASC">A - Z</option>
-            <option value="nameDESC">Z - A</option>
-            <option value="3dModel">3D Models</option>
-          </select>
-        ) : (
-          <button type="button" onClick={handleGoBack}>
-            Explore more
-          </button>
-        )}
+        <section>
+          <button type="submit">Search</button>
+          {!filter ? (
+            <select onChange={handleFilter}>
+              <option value="idASC">Lowest Number(First)</option>
+              <option value="idDESC">Highest Number(First)</option>
+              <option value="nameASC">A - Z</option>
+              <option value="nameDESC">Z - A</option>
+              <option value="3dModel">3D Models</option>
+            </select>
+          ) : (
+            <button type="button" onClick={handleGoBack}>
+              Explore more
+            </button>
+          )}
+        </section>
       </Form>
 
       {inputError && <Error>{inputError}</Error>}

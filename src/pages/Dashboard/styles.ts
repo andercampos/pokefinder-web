@@ -7,10 +7,15 @@ interface IFormProps {
 export const Container = styled.div`
   height: 100%;
 
-  padding: 0 32px;
+  padding: 0 28px;
+
+  @media (max-width: 500px) {
+    padding: 0 8px;
+  } ;
 `;
 
 export const Title = styled.h1`
+  padding: 0 8px;
   font-size: 40px;
   color: var(--text-color);
   display: flex;
@@ -20,8 +25,13 @@ export const Title = styled.h1`
 export const Form = styled.form<IFormProps>`
   margin-top: 16px;
   display: flex;
-  align-items: center;
-  margin: 32px 8px 32px 0;
+  margin: 32px 8px 32px 8px;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+    margin-bottom: 16px;
+    gap: 16px;
+  }
 
   ${props =>
     props.hasError &&
@@ -33,16 +43,19 @@ export const Form = styled.form<IFormProps>`
     display: flex;
     align-items: center;
     flex: 1;
+
     background: var(--shape);
 
-    border: 2px solid var(--shape);
-
     border-radius: 10px;
+
+    @media (max-width: 750px) {
+      width: 100%;
+    }
 
     ${props =>
       props.hasError &&
       css`
-        border-color: #c53030;
+        border: 2px solid #c53030;
       `}
 
     input {
@@ -52,6 +65,8 @@ export const Form = styled.form<IFormProps>`
       background: none;
       padding: 16px;
       color: var(--text-color);
+
+      text-overflow: ellipsis;
     }
 
     svg {
@@ -64,17 +79,34 @@ export const Form = styled.form<IFormProps>`
         `}
     }
   }
+
+  section {
+    display: flex;
+    justify-content: space-around;
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
   button {
     height: 60px;
     width: 150px;
     background: var(--primary-color);
     border: 0;
+    padding: 0 8px;
     border-radius: 10px;
     margin-left: 16px;
     transition: background 0.2s;
 
     &:hover {
       background: var(--primary-hover);
+    }
+
+    @media (max-width: 500px) {
+      width: 100%;
+      margin-left: 0;
     }
   }
 
@@ -92,6 +124,15 @@ export const Form = styled.form<IFormProps>`
     color: #fff;
 
     cursor: pointer;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media (max-width: 500px) {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 `;
 

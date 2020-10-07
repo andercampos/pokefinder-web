@@ -8,6 +8,10 @@ export const Container = styled.div`
   height: 100%;
 
   padding: 0 32px;
+
+  @media (max-width: 750px) {
+    padding: 0;
+  }
 `;
 
 export const Header = styled.div`
@@ -29,6 +33,10 @@ export const Header = styled.div`
 
     svg {
       margin-right: 8px;
+
+      @media (max-width: 400px) {
+        margin-right: 2px;
+      }
     }
   }
 `;
@@ -64,6 +72,8 @@ export const Content = styled.div`
     color: var(--text-color);
     transition: color 0.2s;
 
+    margin-bottom: 32px;
+
     &:hover {
       color: #999;
     }
@@ -78,6 +88,11 @@ export const Pokemon = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 32px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+  }
 
   h1 {
     color: var(--text-color);
@@ -97,12 +112,23 @@ export const Detail = styled.div`
   border-radius: 10px;
   padding: 16px;
   margin-bottom: 32px;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
 `;
 
 export const Info = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0 16px 16px;
+
+  @media (max-width: 750px) {
+    margin-top: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;
 
 export const Type = styled.section`
@@ -133,4 +159,10 @@ export const Stats = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0 16px;
+
+  @media (max-width: 750px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;

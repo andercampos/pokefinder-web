@@ -4,6 +4,10 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
   padding: 0 32px;
+
+  @media (max-width: 750px) {
+    padding: 0;
+  }
 `;
 
 export const Header = styled.div`
