@@ -1,5 +1,6 @@
 import React, { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
+import { AiOutlineCodeSandbox } from 'react-icons/ai';
 
 import api from '../../services/api';
 import formatString from '../../utils/formatString';
@@ -40,6 +41,7 @@ const Card: React.FC<ICardProps> = ({ id, name, imageURL, hasModel }) => {
         <Image height={200} width={200} image={imageURL} alt={name} />
         <p># {id}</p>
         <h3>{formatString(name)}</h3>
+        {hasModel && <AiOutlineCodeSandbox size={24} />}
 
         <ul>
           {!!types &&

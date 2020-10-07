@@ -5,6 +5,7 @@ import { ITypeVariations, typeVariations } from '../../utils/typeVariations';
 type ILiType = ITypeVariations;
 
 export const Container = styled.div`
+  position: relative;
   background: #1f211f;
   border-radius: 10px;
   width: 200px;
@@ -22,6 +23,14 @@ export const Container = styled.div`
 
   a {
     text-decoration: none;
+
+    svg {
+      position: absolute;
+      right: 8px;
+      bottom: 65px;
+
+      color: var(--text-color);
+    }
   }
 
   p {
