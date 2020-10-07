@@ -40,6 +40,10 @@ export const Title = styled.h1`
   align-items: center;
 
   a {
+    &:hover {
+      color: var(--text-color);
+    }
+
     svg {
       margin-right: 0;
     }
