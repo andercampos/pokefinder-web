@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { extend, useThree, useFrame, ReactThreeFiber } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 

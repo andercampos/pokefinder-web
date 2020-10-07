@@ -75,7 +75,7 @@ const Details: React.FC = () => {
       setPokemon(pokemonData);
     }
     loadDetails();
-  }, [params.pokemon]);
+  }, [params.pokemon, params.hasmodel]);
 
   return (
     <Container>

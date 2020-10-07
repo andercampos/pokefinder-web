@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, FormEvent } from 'react';
-import { CgSearch, CgPokemon, CgArrowLeft } from 'react-icons/cg';
+import { CgSearch, CgPokemon } from 'react-icons/cg';
 
 import api from '../../services/api';
 import models from '../../data/models.json';
