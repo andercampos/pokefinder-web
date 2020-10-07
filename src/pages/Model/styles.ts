@@ -10,23 +10,6 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  a {
-    display: flex;
-    align-items: center;
-
-    text-decoration: none;
-    color: var(--text-color);
-    transition: color 0.2s;
-
-    &:hover {
-      color: #999;
-    }
-
-    svg {
-      margin-right: 8px;
-    }
-  }
 `;
 
 export const Title = styled.h1`
@@ -34,14 +17,34 @@ export const Title = styled.h1`
   color: var(--text-color);
   display: flex;
   align-items: center;
+  justify-content: center;
 
   a {
+    text-decoration: none;
+    color: var(--text-color);
+
     &:hover {
       color: var(--text-color);
     }
+  }
+`;
 
-    svg {
-      margin-right: 0;
-    }
+export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 0;
+  outline: none;
+
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.2s;
+
+  &:hover {
+    color: #999;
+  }
+
+  svg {
+    margin-right: 8px;
   }
 `;

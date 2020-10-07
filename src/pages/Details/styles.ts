@@ -38,6 +38,12 @@ export const Title = styled.h1`
   color: var(--text-color);
   display: flex;
   align-items: center;
+
+  a {
+    svg {
+      margin-right: 0;
+    }
+  }
 `;
 
 export const Content = styled.div`
