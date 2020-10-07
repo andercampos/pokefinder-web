@@ -19,6 +19,10 @@ const cameraPositionZ = (calc: number): number => {
     return calc * 10;
   }
 
+  if (calc > 21 && calc <= 30) {
+    return calc * 2;
+  }
+
   if (calc > 30 && calc <= 80) {
     return calc / 1.5;
   }

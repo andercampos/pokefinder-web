@@ -183,7 +183,7 @@ const Dashboard: React.FC = () => {
           />
           <CgSearch size={24} />
         </div>
-        <button type="submit">Find</button>
+        <button type="submit">Search</button>
         {!filter ? (
           <select onChange={handleFilter}>
             <option value="idASC">Lowest Number(First)</option>
