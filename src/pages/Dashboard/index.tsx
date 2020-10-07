@@ -8,7 +8,7 @@ import Card from '../../components/Card';
 import getPokemonId from '../../utils/getPokemonId';
 import sortPokemons from '../../utils/sortPokemons';
 
-import { Container, Title, Form, Content } from './styles';
+import { Container, Title, Form, Content, Error } from './styles';
 
 interface IPagination {
   next: string;
@@ -32,6 +32,7 @@ interface IPokemon {
 const Dashboard: React.FC = () => {
   const [pagination, setPagination] = useState<IPagination>();
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
+  const [inputError, setInputError] = useState('');
   const [findPokemon, setFindPokemon] = useState('');
   const [filter, setFilter] = useState(false);
 
@@ -60,6 +61,7 @@ const Dashboard: React.FC = () => {
       event.preventDefault();
 
       if (!findPokemon) {
+        setInputError('Enter the name or number of the Pokémon');
         return;
       }
 
@@ -85,11 +87,12 @@ const Dashboard: React.FC = () => {
           );
         }
 
+        setInputError('');
         setFilter(true);
         setPokemons(pokemon);
         setFindPokemon('');
       } catch (err) {
-        console.log(err);
+        setInputError('No Pokémon matched your search');
       }
     },
     [findPokemon, pokemons],
@@ -170,7 +173,7 @@ const Dashboard: React.FC = () => {
         P<CgPokemon size={30} /> kefinder
       </Title>
 
-      <Form onSubmit={handleSearch}>
+      <Form hasError={!!inputError} onSubmit={handleSearch}>
         <div>
           <input
             value={findPokemon}
@@ -195,6 +198,8 @@ const Dashboard: React.FC = () => {
           </button>
         )}
       </Form>
+
+      {inputError && <Error>{inputError}</Error>}
 
       <Content>
         {pokemons.map(pokemon => (

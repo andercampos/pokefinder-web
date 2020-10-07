@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface IFormProps {
+  hasError: boolean;
+}
 
 export const Container = styled.div`
   height: 100%;
@@ -13,11 +17,17 @@ export const Title = styled.h1`
   align-items: center;
 `;
 
-export const Form = styled.form`
+export const Form = styled.form<IFormProps>`
   margin-top: 16px;
   display: flex;
   align-items: center;
   margin: 32px 8px 32px 0;
+
+  ${props =>
+    props.hasError &&
+    css`
+      margin-bottom: 8px;
+    `}
 
   div {
     display: flex;
@@ -25,19 +35,33 @@ export const Form = styled.form`
     flex: 1;
     background: var(--shape);
 
+    border: 2px solid var(--shape);
+
     border-radius: 10px;
 
+    ${props =>
+      props.hasError &&
+      css`
+        border-color: #c53030;
+      `}
+
     input {
+      border: 0;
       height: 60px;
       flex: 1;
       background: none;
-      border: 0;
       padding: 16px;
       color: var(--text-color);
     }
 
     svg {
       margin-right: 16px;
+
+      ${props =>
+        props.hasError &&
+        css`
+          color: #c53030;
+        `}
     }
   }
   button {
@@ -69,6 +93,12 @@ export const Form = styled.form`
 
     cursor: pointer;
   }
+`;
+
+export const Error = styled.span`
+  display: block;
+  color: #c53030;
+  margin-bottom: 8px;
 `;
 
 export const Content = styled.div`

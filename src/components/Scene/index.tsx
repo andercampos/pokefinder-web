@@ -4,6 +4,7 @@ import {
   extend,
   useThree,
   useFrame,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ReactThreeFiber,
 } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
