@@ -29,6 +29,8 @@ interface IPokemon {
   hasModel: boolean;
 }
 
+const IMAGE_URL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/`;
+
 const Dashboard: React.FC = () => {
   const [pagination, setPagination] = useState<IPagination>();
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
@@ -43,9 +45,7 @@ const Dashboard: React.FC = () => {
       const pokemonData = response.data.results.map((pokemon: IPokemon) => ({
         id: getPokemonId(pokemon.url),
         name: pokemon.name,
-        imageURL: `https://pokeres.bastionbot.org/images/pokemon/${getPokemonId(
-          pokemon.url,
-        )}.png`,
+        imageURL: `${IMAGE_URL}/${getPokemonId(pokemon.url)}.png`,
         url: pokemon.url,
         hasModel: models.name.includes(pokemon.name),
       }));
@@ -68,13 +68,11 @@ const Dashboard: React.FC = () => {
       try {
         const response = await api.get(`/pokemon/${findPokemon.toLowerCase()}`);
 
-        const imageURL = `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`;
-
         const pokemon = [
           {
             id: response.data.id,
             name: response.data.name,
-            imageURL,
+            imageURL: `${IMAGE_URL}/${response.data.id}.png`,
             url: `https://pokeapi.co/api/v2/pokemon/${response.data.id}/`,
             hasModel: models.name.includes(response.data.name),
           },
@@ -110,9 +108,7 @@ const Dashboard: React.FC = () => {
     const pokemonData = response.data.results.map((pokemon: IPokemon) => ({
       id: getPokemonId(pokemon.url),
       name: pokemon.name,
-      imageURL: `https://pokeres.bastionbot.org/images/pokemon/${getPokemonId(
-        pokemon.url,
-      )}.png`,
+      imageURL: `${IMAGE_URL}/${getPokemonId(pokemon.url)}.png`,
       url: pokemon.url,
       hasModel: models.name.includes(pokemon.name),
     }));
@@ -145,7 +141,7 @@ const Dashboard: React.FC = () => {
           const sortedBy3dModels = response.map((res: any) => ({
             id: res.data.id,
             name: res.data.name,
-            imageURL: `https://pokeres.bastionbot.org/images/pokemon/${res.data.id}.png`,
+            imageURL: `${IMAGE_URL}/${res.data.id}.png`,
             url: res.data.url,
             hasModel: models.name.includes(res.data.name),
           }));

@@ -43,6 +43,8 @@ interface IPokemon {
   stats: IStats[];
 }
 
+const IMAGE_URL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/`;
+
 const Details: React.FC = () => {
   const [pokemon, setPokemon] = useState<IPokemon>({} as IPokemon);
 
@@ -63,7 +65,7 @@ const Details: React.FC = () => {
         name: formatString(name),
         height,
         weight,
-        imageURL: `https://pokeres.bastionbot.org/images/pokemon/${response.data.id}.png`,
+        imageURL: `${IMAGE_URL}/${response.data.id}.png`,
         types: typesData,
         stats,
       };
